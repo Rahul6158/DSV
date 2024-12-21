@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circular Queue</title>
+    <link rel="icon" type="image/x-icon" href="logo.png">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #f7f8fc, #e2ecf6);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .heading {
+            color: #ffcc33;
+            font-size: 2rem; /* Slightly smaller font size */
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        header {
+                    width: 100%;
+                    text-align: center;
+                    padding: 20px 0;
+                    background-color: #001358;
+        }
+
+        footer {
+          width: 100%;
+          text-align: center;
+          padding: 0 10px;
+          margin-top: 10px;
+          margin-bottom: 10px;
+
+          background-color: #001358;
+          color: #ffcc33;
+        }
+
+        #container {
+            background: white;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        #inputSection {
+            margin: 20px 0;
+        }
+
+        #inputSection input,
+        #inputSection button {
+            padding: 12px 16px;
+            font-size: 14px;
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            margin: 5px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        #inputSection input {
+            width: 200px;
+        }
+
+        #inputSection button {
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        #inputSection button:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        #circle {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 20px auto;
+            border-radius: 50%;
+            border: 2px dashed #007bff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .queueBlock {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            background: linear-gradient(to right, #38acff, #54b2ff);
+            color: #333;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .queueBlock.empty {
+            background: #e9ecef;
+            border: 1px dashed #ccc;
+            color: #aaa;
+        }
+
+        .queueBlock:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .pointer {
+            position: absolute;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        .front {
+            transform: translateY(-20px);
+        }
+
+        .rear {
+            transform: translateY(20px);
+        }
+
+        #messageBox {
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        #messageBox.success {
+            color: green;
+        }
+
+        #messageBox.error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1 class="heading">Circular Queue Visualization</h1>
+        <p style="color: red;"><b>Note:</b>Please use only in desktop mode</p>
+    </header>
+
+    <div id="container">
+        <h1>Stylized Circular Queue</h1>
+        <div id="inputSection">
+            <input type="number" id="queueSize" placeholder="Queue size (3-15)" min="3" max="15">
+            <button onclick="initializeQueue()">Initialize</button>
+        </div>
+        <div id="inputSection">
+            <input type="text" id="elementInput" placeholder="Element to enqueue">
+            <button onclick="enqueue()">Enqueue</button>
+            <button onclick="dequeue()">Dequeue</button>
+            <button onclick="clearQueue()">Clear Queue</button>
+        </div>
+        <div id="circle"></div>
+        <div id="messageBox"></div>
+    </div>
+    <footer>
+        <p>Visualization for Basic Idea </p>
+   </footer>
+    <script>
+        const circle = document.getElementById("circle");
+        const messageBox = document.getElementById("messageBox");
+
+        let queue = [];
+        let size = 0;
+        let front = -1;
+        let rear = -1;
+
+        function initializeQueue() {
+            size = parseInt(document.getElementById("queueSize").value);
+            if (isNaN(size) || size < 3 || size > 15) {
+                displayMessage("Enter a valid queue size between 3 and 15!", "error");
+                return;
+            }
+
+            queue = new Array(size).fill(null);
+            front = -1;
+            rear = -1;
+            drawQueue();
+            displayMessage(`Queue initialized with size ${size}.`, "success");
+        }
+
+        function enqueue() {
+            const element = document.getElementById("elementInput").value.trim();
+            if (!element) {
+                displayMessage("Please enter a valid element!", "error");
+                return;
+            }
+
+            if ((rear + 1) % size === front) {
+                displayMessage("Queue is full!", "error");
+                return;
+            }
+
+            if (front === -1) front = 0;
+            rear = (rear + 1) % size;
+            queue[rear] = element;
+            drawQueue();
+            displayMessage(`Enqueued: ${element}`, "success");
+        }
+
+        function dequeue() {
+            if (front === -1) {
+                displayMessage("Queue is empty!", "error");
+                return;
+            }
+
+            const dequeued = queue[front];
+            queue[front] = null;
+            if (front === rear) {
+                front = -1;
+                rear = -1;
+            } else {
+                front = (front + 1) % size;
+            }
+
+            drawQueue();
+            displayMessage(`Dequeued: ${dequeued}`, "success");
+        }
+
+        function clearQueue() {
+            queue = new Array(size).fill(null);
+            front = -1;
+            rear = -1;
+            drawQueue();
+            displayMessage("Queue cleared!", "success");
+        }
+
+        function drawQueue() {
+            circle.innerHTML = "";
+            const angleIncrement = (2 * Math.PI) / size;
+            const radius = 130;
+
+            queue.forEach((element, index) => {
+                const angle = index * angleIncrement - Math.PI / 2;
+                const x = Math.cos(angle) * radius + 150 - 30;
+                const y = Math.sin(angle) * radius + 150 - 30;
+
+                const block = document.createElement("div");
+                block.classList.add("queueBlock");
+                block.style.left = `${x}px`;
+                block.style.top = `${y}px`;
+                if (element === null) {
+                    block.classList.add("empty");
+                } else {
+                    block.textContent = element;
+                }
+
+                // Add front and rear pointers
+                if (index === front) {
+                    const frontPointer = document.createElement("div");
+                    frontPointer.textContent = "Front";
+                    frontPointer.classList.add("pointer", "front");
+                    block.appendChild(frontPointer);
+                }
+
+                if (index === rear) {
+                    const rearPointer = document.createElement("div");
+                    rearPointer.textContent = "Rear";
+                    rearPointer.classList.add("pointer", "rear");
+                    block.appendChild(rearPointer);
+                }
+
+                circle.appendChild(block);
+            });
+        }
+
+        function displayMessage(message, type) {
+            messageBox.textContent = message;
+            messageBox.className = type;
+        }
+    </script>
+</body>
+
+</html>

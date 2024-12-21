@@ -1,0 +1,284 @@
+/* Basic reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f4f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.container {
+  background: #fff;
+  padding: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  width: 80%;
+  max-width: 900px;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.control-panel {
+  display: flex;
+  align-items: center; /* Center items vertically */
+  flex-wrap: wrap; /* Allow items to wrap if there's not enough space */
+  margin-bottom: 30px;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 20px;
+  flex: 1;
+}
+
+label {
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+input[type="text"], input[type="number"] {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+input[type="text"]::placeholder {
+  font-style: italic;
+  color: #aaa;
+}
+
+button.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  margin: 5px; /* Space between buttons */
+}
+
+/* button.primary {
+  background-color: #5A67D8;
+  color: white;
+} */
+
+button.success {
+  background-color: #000000;
+  color: white;
+}
+/* 
+button.danger {
+  margin-top: 76px;
+  background-color: #48BB78;
+  color: white;
+} */
+
+button.reset {
+  margin-top: 76px;
+  background-color: #fa0c0c;
+  color: white;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+  margin-right: 20px;
+}
+
+label {
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+input[type="text"], input[type="number"] {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+input[type="text"]::placeholder {
+  font-style: italic;
+  color: #aaa;
+}
+
+button.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+button.primary {
+  background-color: #5A67D8;
+  color: white;
+}
+
+button.success {
+  background-color: #09602d;
+  color: white;
+}
+
+button.danger {
+  margin-top: 76px;
+  background-color: #09602d;
+  color: white;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.queue-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: space-between;
+  margin: 20px 0; /* Space above and below the table */
+}
+
+.queue-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0; /* Space above and below the table */
+  margin-top: 60px;
+}
+
+.queue-table td {
+  border: 2px solid #000000;
+  border-radius: 5px; /* Curvy border */
+  width: 10%;
+  height: 100px;
+  text-align: center;
+  vertical-align: middle;
+  position: relative;
+  background-color: #ccebff;
+  color: blue;
+}
+
+.queue-table td::before {
+  content: attr(data-index); /* Display index as cell content */
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  font-size: 12px;
+  color: gray;
+}
+
+.image {
+  width: 50px;
+  height: 50px;
+  margin-top: -30px;
+}
+
+.box {
+  width: 70px;
+  height: 35px;
+  background: #3182CE;
+  color: white;
+  text-align: center;
+  line-height: 35px;
+  font-weight: bold;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+#container, #container4 {
+  position: absolute;
+  top: -20px;
+}
+
+#container {
+  left: 0;
+}
+
+#container4 {
+  right: 0;
+}
+
+/* CSS styles for message box */
+.message-area {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.message-area.warning {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  color: #e53e3e;
+}
+
+.message-area.operation {
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  color: #155724;
+}
+
+.message-area.hidden {
+  display: none;
+}
+
+
+.blinking-green {
+  color: #2f855a;
+  animation: blink-green 1s infinite;
+}
+
+.blinking-red {
+  color: #e53e3e;
+  animation: blink-red 1s infinite;
+}
+
+@keyframes blink-green {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes blink-red {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+/* 
+button.reset {
+  background-color: #E2E8F0; /* Light gray 
+  color: #a90101;
+} */
+
+button.reset:hover {
+  opacity: 0.9;
+}

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Priority Queue Visualization</title>
+    <link rel="icon" type="image/x-icon" href="logo.png">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #f7f8fc, #e2ecf6);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .heading {
+            color: #ffcc33;
+            font-size: 2rem; /* Slightly smaller font size */
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        header {
+                    width: 100%;
+                    text-align: center;
+                    padding: 20px 0;
+                    background-color: #001358;
+        }
+
+        footer {
+          width: 100%;
+          text-align: center;
+          padding: 0 10px;
+          margin-top: 10px;
+          margin-bottom: 10px;
+
+          background-color: #001358;
+          color: #ffcc33;
+        }
+
+        #container {
+            background: white;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        #inputSection {
+            margin: 20px 0;
+        }
+
+        #inputSection input,
+        #inputSection button {
+            padding: 12px 16px;
+            font-size: 14px;
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            margin: 5px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        #inputSection input {
+            width: 120px;
+        }
+
+        #inputSection button {
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        #inputSection button:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        #queue {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 20px auto;
+            overflow-x: auto;
+            padding: 10px;
+            background: #f1f3f5;
+            border-radius: 12px;
+            border: 2px dashed #007bff;
+            min-height: 80px;
+        }
+
+        .queueBlock {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            background: linear-gradient(to right, #e3f2fd, #64b5f6);
+            color: #333;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .queueBlock.empty {
+            background: #e9ecef;
+            border: 1px dashed #ccc;
+            color: #aaa;
+        }
+
+        .queueBlock .priority {
+            font-size: 12px;
+            font-weight: bold;
+            color: #d32f2f;
+            position: absolute;
+            bottom: 5px;
+        }
+
+        .queueBlock:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        #messageBox {
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        #messageBox.success {
+            color: green;
+        }
+
+        #messageBox.error {
+            color: red;
+        }
+
+        @media (max-width: 768px) {
+            #queueSize {
+                max-block-size: 8;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1 class="heading">Priority Queue Visualization</h1>
+        <p style="color: red;"><b>Note:</b>Please use only in desktop mode</p>
+    </header>
+
+    <div id="container">
+        <h1>Priority Queue Visualization</h1>
+        <div id="inputSection">
+            <input type="number" id="queueSize" placeholder="Queue size (3-15)" min="3" max="15">
+            <button onclick="initializeQueue()">Initialize</button>
+        </div>
+        <div id="inputSection">
+            <input type="text" id="elementInput" placeholder="Element">
+            <input type="number" id="priorityInput" placeholder="Priority" min="1">
+            <button onclick="enqueue()">Enqueue</button>
+            <button onclick="dequeue()">Dequeue</button>
+            <button onclick="clearQueue()">Clear Queue</button>
+        </div>
+        <div id="queue"></div>
+        <div id="messageBox"></div>
+    </div>
+
+    <footer>
+        <p>Visualization for Basic Idea </p>
+   </footer>
+
+    <script>
+        const queueContainer = document.getElementById("queue");
+        const messageBox = document.getElementById("messageBox");
+
+        let queue = [];
+        let size = 0;
+
+        function initializeQueue() {
+            size = parseInt(document.getElementById("queueSize").value);
+            const maxQueueSize = window.innerWidth <= 768 ? 8 : 15;
+            if (isNaN(size) || size < 3 || size > maxQueueSize) {
+                displayMessage(`Enter a valid queue size between 3 and ${maxQueueSize}!`, "error");
+                return;
+            }
+
+            queue = [];
+            for (let i = 0; i < size; i++) {
+                queue.push({ element: null, priority: null });
+            }
+            drawQueue();
+            displayMessage(`Priority queue initialized with size ${size}.`, "success");
+        }
+
+        function enqueue() {
+            const element = document.getElementById("elementInput").value.trim();
+            const priority = parseInt(document.getElementById("priorityInput").value);
+
+            if (!element || isNaN(priority)) {
+                displayMessage("Enter a valid element and priority!", "error");
+                return;
+            }
+
+            if (queue.every(item => item.element !== null)) {
+                displayMessage("Queue is full!", "error");
+                return;
+            }
+
+            const newItem = { element, priority };
+            let inserted = false;
+
+            for (let i = 0; i < queue.length; i++) {
+                if (queue[i].element === null) {
+                    queue[i] = newItem;
+                    inserted = true;
+                    break;
+                }
+                if (queue[i].priority > priority) {
+                    queue.splice(i, 0, newItem);
+                    queue.pop(); // Remove the last null space
+                    inserted = true;
+                    break;
+                }
+            }
+
+            if (!inserted) {
+                queue.push(newItem);
+                queue.pop(); // Maintain the fixed size
+            }
+
+            drawQueue();
+            displayMessage(`Enqueued: ${element} with priority ${priority}`, "success");
+        }
+
+        function dequeue() {
+            if (queue.every(item => item.element === null)) {
+                displayMessage("Queue is empty!", "error");
+                return;
+            }
+
+            const dequeued = queue[0];
+            queue.shift();
+            queue.push({ element: null, priority: null }); // Maintain size
+            drawQueue();
+            displayMessage(`Dequeued: ${dequeued.element} with priority ${dequeued.priority}`, "success");
+        }
+
+        function clearQueue() {
+            queue = [];
+            for (let i = 0; i < size; i++) {
+                queue.push({ element: null, priority: null });
+            }
+            drawQueue();
+            displayMessage("Queue cleared!", "success");
+        }
+
+        function drawQueue() {
+            queueContainer.innerHTML = "";
+
+            queue.forEach(item => {
+                const block = document.createElement("div");
+                block.classList.add("queueBlock");
+
+                if (item.element === null) {
+                    block.classList.add("empty");
+                } else {
+                    block.textContent = item.element;
+                    const priorityTag = document.createElement("span");
+                    priorityTag.classList.add("priority");
+                    priorityTag.textContent = `P: ${item.priority}`;
+                    block.appendChild(priorityTag);
+                }
+
+                queueContainer.appendChild(block);
+            });
+        }
+
+        function displayMessage(message, type) {
+            messageBox.textContent = message;
+            messageBox.className = type;
+        }
+    </script>
+</body>
+
+</html>

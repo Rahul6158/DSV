@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Structures Visualizations</title>
+  <link rel="icon" type="image/x-icon" href="logo.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color:white;
+      animation: gradientAuraAnimation 10s ease infinite;
+    }
+
+    /* Header Styles */
+    /* header {
+        background: linear-gradient(to right, #ff7e5f, #feb47b);
+        width: 100%;
+        text-align: center;
+        padding: 20px 0;
+        font-family: fantasy;
+        text-decoration-color: #333;
+        } */
+
+    header h1 {
+      font-size: 2.5rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* Navigation Bar */
+    nav {
+      background-color: #2370ff;
+      display: flex;
+      justify-content: center;
+      padding: 10px 0;
+      
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 20px;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #f89b29;
+    }
+
+    /* Footer Styles */
+    footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: #f89b29;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Main Content Styles */
+    .main-container {
+      padding: 60px 20px 80px;
+      text-align: center;
+    }
+
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .card {
+      position: relative;
+      width: 100%;
+      height: 250px;
+      background-image: linear-gradient(-45deg, #00e5ff 0%, #0066ff 100%);
+      border-radius: 10px;
+      display: flex;
+      padding: 10px 30px;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+      border: 2px solid black;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .heading {
+      font-size: 24px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .para {
+      text-align: center;
+      color: #ffffff;
+      opacity: 0.7;
+      line-height: 1.4;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      background-color: rgba(0, 0, 0, 0.6);
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .card:hover .overlay {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .card .card-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      font-weight: 600;
+      padding: 10px 20px;
+      font-size: 16px;
+      transform: translate(-50%, -50%);
+      background-color: #ffffff;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 999;
+      border: none;
+      opacity: 0;
+      scale: 0;
+      transform-origin: 0 0;
+      box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.15);
+      transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+    }
+
+    .card:hover .card-btn {
+      opacity: 1;
+      scale: 1;
+    }
+
+    .card .card-btn:hover {
+      box-shadow: 0 0 0px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .card .card-btn:active {
+      scale: 0.95;
+    }
+
+    .overlay::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(-45deg, #2929f880 0%, #ff0f7b80 100%);
+      transition: transform 0.5s ease;
+    }
+
+    .card:hover .overlay::after {
+      transform: translate(-50%, -50%) scale(2);
+    }
+
+ /* Animated Aura Light Effect for Header */
+@keyframes gradientAuraAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+header {
+  background: linear-gradient(to right, #000000, #0a120e, #0fff43, #f82929);
+  background-size: 300% 300%;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+  animation: gradientAuraAnimation 6s ease infinite;
+  font-family:fantasy;
+  text-shadow: 2px 2px 5px #333;
+}
+
+
+
+
+    @media (max-width: 768px) {
+      .card-container {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>DS Visualizations</h1>
+  </header>
+
+  <!-- Navigation Bar -->
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">Contact</a>
+  </nav>
+
+  <div class="main-container">
+    <div class="card-container">
+      <div class="card">
+        <p class="heading">Array</p>
+        <p class="para">Visualize how arrays store elements in contiguous memory locations.</p>
+        <div class="overlay"></div>
+        <a href="array/array.html" class="card-btn">CHECK IT</a>
+      </div>
+      
+      <div class="card">
+        <p class="heading">Stack</p>
+        <p class="para">Understand how the stack follows LIFO (Last In, First Out) order.</p>
+        <div class="overlay"></div>
+        <a href="stack\stack.html" class="card-btn">CHECK IT</a>
+      </div>
+      
+      <div class="card">
+        <p class="heading">Queue</p>
+        <p class="para">Learn how queues operate in a FIFO (First In, First Out) manner.</p>
+        <div class="overlay"></div>
+        <a href="queue\queuearr.html" class="card-btn">CHECK IT</a>
+      </div>
+      
+      <div class="card">
+        <p class="heading">Linked List</p>
+        <p class="para">Explore how linked lists store data with nodes and pointers.</p>
+        <div class="overlay"></div>
+        <a href="linkedlist\linkedlist.html" class="card-btn">CHECK IT</a>
+      </div>
+      
+      <div class="card">
+        <p class="heading">Circular Queue</p>
+        <p class="para">Visualize how circular queues manage data in a circular fashion.</p>
+        <div class="overlay"></div>
+        <a href="circularqueue/circularqueue.html" class="card-btn">CHECK IT</a>
+      </div>
+      
+      <div class="card">
+        <p class="heading">Priority Queue</p>
+        <p class="para">See how priority queues organize elements based on their priority.</p>
+        <div class="overlay"></div>
+        <a href="priorityqueue/priorityqueue.html" class="card-btn">CHECK IT</a>
+      </div>
+            <!-- Add more cards as needed -->
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; Data Structures Visualizations </p>
+  </footer>
+
+</body>
+</html>

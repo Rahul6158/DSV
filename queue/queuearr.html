@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Queue using Array</title>
+  <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS -->
+  <link href="https://fonts.goo6gleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet"> <!-- Google Fonts -->
+  <link rel="icon" type="image/x-icon" href="logo.png">
+  <style>
+            .heading {
+            color: #ffcc33;
+            font-size: 2rem; /* Slightly smaller font size */
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        header {
+                    width: 100%;
+                    text-align: center;
+                    padding: 20px 0;
+                    background-color: #001358;
+        }
+
+        footer {
+          width: 100%;
+          text-align: center;
+          padding: 0 10px;
+          margin-top: 10px;
+          margin-bottom: 10px;
+
+          background-color: #001358;
+          color: #ffcc33;
+        }
+  </style>
+
+</head>
+<body>
+
+  <header>
+    <h1 class="heading">Queue Visualization</h1>
+</header>
+
+<div class="container">
+  <h1>Queue using Array</h1>
+
+  <div class="control-panel">
+    <div class="input-container">
+      <label for="columnSize">set Queue Size (0 to 9):</label>
+      <input type="number" id="columnSize" min="0" max="9" value="7">
+      <button class="btn primary" onclick="setColumnSize()">Set Queue Size</button>
+    </div>
+
+    <div class="input-container">
+      <label for="element">Enter Element:</label>
+      <input type="number" id="element" placeholder="Enter a single element">
+      <button class="btn success" onclick="addElement()">Enque</button>
+    </div>
+
+    <div class="input-container">
+      <button class="btn danger" onclick="removeOldestElement()">Deque</button>
+    </div>
+
+    <!-- Add Reset Button -->
+    <div class="input-container">
+      <button class="btn reset" onclick="resetQueue()">Reset</button>
+    </div>
+  </div>
+
+  <div class="queue-container">
+    <div id="container">
+      <div id="box" class="box">Head : <span id="headIndex">-</span></div>
+      <img id="image" class="image" src="darr.png" alt="Head Pointer">
+    </div>
+
+    <table id="customTable" class="queue-table">
+      <tr id="tableRow">
+        <!-- Table columns will be dynamically populated here -->
+      </tr>
+    </table>
+
+    <div id="container4">
+      <div id="box4" class="box">Tail : <span id="tailIndex"> 0 <span/></div>
+      <img id="image4" class="image" src="darr.png" alt="Tail Pointer">
+    </div>
+  </div>
+
+  <!-- Div for displaying messages -->
+  <B><div id="messageArea" class="message-area hidden"></div></B>
+
+</div>
+
+<footer>
+  <p> Visualization for Basic Idea </p>
+</footer>
+
+<script src="script.js"></script> <!-- Link to external JavaScript -->
+</body>
+</html>

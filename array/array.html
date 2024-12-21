@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Interactive Array Operations</title>
+    <link rel="icon" type="image/x-icon" href="logo.png">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            display: grid;
+        }
+
+        .heading {
+            color: #ffcc33;
+            font-size: 2rem; /* Slightly smaller font size */
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        header {
+                    width: 100%;
+                    text-align: center;
+                    padding: 20px 0;
+                    background-color: #001358;
+        }
+
+        #container {
+            background: linear-gradient(to bottom, #a8c0d7, #f0f4f8);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            width: 100%;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        #header {
+            text-align: center;
+            color: #4a90e2;
+            margin-bottom: 20px;
+        }
+
+        #header h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        #inputSection {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #inputSection input,
+        #inputSection select {
+            padding: 12px;
+            font-size: 16px;
+            margin-right: 10px;
+            border: 2px solid #4a90e2;
+            border-radius: 10px;
+            transition: border-color 0.3s ease;
+            width: 250px;
+            margin-bottom: 10px;
+        }
+
+        #inputSection input:focus,
+        #inputSection select:focus {
+            border-color: #66b2ff;
+        }
+
+        #inputSection button {
+            padding: 12px 20px;
+            font-size: 16px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        #inputSection button:hover {
+            background-color: #66b2ff;
+        }
+
+        #messageBox {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .darkRed {
+            background-color: darkred;
+            color: white;
+            animation: blink 0.5s step-start 6;
+        }
+
+        .yellow {
+            background-color: yellow;
+            color: black;
+        }
+
+        .green {
+            background-color: lightgreen;
+            color: black;
+        }
+
+        .lightRed {
+            background-color: lightcoral;
+            color: black;
+        }
+
+        #arrayContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        #arrayStack {
+            display: flex;
+            padding: 10px;
+            border: 2px solid #4a90e2;
+            border-radius: 8px;
+            background-color: #e6f7ff;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .arrayBlock {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 60px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #ffffff;
+            border: 2px solid #4a90e2;
+            border-radius: 4px;
+            margin-right: 5px;
+            transition: transform 0.2s ease, background-color 0.3s ease;
+        }
+
+        .arrayBlock:last-child {
+            margin-right: 0;
+        }
+
+        .arrayBlock:hover {
+            transform: scale(1.1);
+            background-color: #66b2ff;
+        }
+
+        .arrayIndex {
+            text-align: center;
+            font-size: 14px;
+            margin-top: 5px;
+            color: #4a90e2;
+        }
+
+        .ramRepresentation {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #4a90e2;
+        }
+
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 0 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+
+            background-color: #001358;
+            color: #ffcc33;
+        }
+
+        @keyframes blink {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            #container {
+                padding: 20px;
+            }
+
+            #header h1 {
+                font-size: 2em;
+            }
+
+            #inputSection input,
+            #inputSection select,
+            #inputSection button {
+                width: 100%;
+                font-size: 14px;
+                padding: 10px;
+                margin-bottom: 8px;
+            }
+
+            #arrayStack {
+                width: 100;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .arrayBlock {
+                max-width: 100%;
+                margin-right: 0;
+            }
+
+            .ramRepresentation {
+                font-size: 12px;
+            }
+        }
+
+         /* Layout Adjustments for Landscape Orientation */
+         @media (max-width: 768px) and (orientation: portrait) {
+            body {
+                transform: rotate(90deg);
+
+
+        }}
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1 class="heading">Array Visualization</h1>
+        <p style="color: red;"><b>Note:</b>Please use only in desktop mode</p>
+    </header>
+    <div id="container">
+        <div id="header">
+            <h1>Interactive Array Operations</h1>
+            <p style="text-align:'center';color: red;"><b>Note</b> : Please use only in desktop mode</p>
+        </div>
+        <div id="inputSection">
+            <select id="dataType">
+                <option value="int">Integer</option>
+                <option value="float">Float</option>
+                <option value="char">Character</option>
+                <option value="string">String</option>
+            </select>
+            <input type="number" id="arraySize" placeholder="Enter array size (3-13)" min="3" max="13">
+            <button onclick="initializeArray()">Create Array</button>
+        </div>
+        <div id="inputSection">
+            <input type="text" id="elementInput" placeholder="Enter element">
+            <button onclick="addElement()">Add Element</button>
+            <button onclick="deleteElement()">Delete Element</button>
+            <button onclick="peekElement()">Peek Element</button>
+            <button onclick="clearArray()">Clear Array</button>
+        </div>
+        <div id="messageBox"></div>
+        <div id="arrayContainer">
+            <div id="arrayStack"></div>
+            <div id="ramRepresentation" class="ramRepresentation"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Visualization for Basic Idea </p>
+   </footer>
+
+    <script>
+        const arrayStack = document.getElementById('arrayStack');
+        const elementInput = document.getElementById('elementInput');
+        const arraySizeInput = document.getElementById('arraySize');
+        const dataTypeSelect = document.getElementById('dataType');
+        const messageBox = document.getElementById('messageBox');
+        const ramRepresentation = document.getElementById('ramRepresentation');
+        let array = [];
+        let maxArraySize = 0;
+        let dataType = null;
+
+        function initializeArray() {
+            const size = parseInt(arraySizeInput.value);
+            dataType = dataTypeSelect.value;
+
+            if (isNaN(size) || size < 3 || size > 13) {
+                showMessage('Please enter a valid size between 3 and 13!', 'darkRed', true);
+                return;
+            }
+
+            maxArraySize = size;
+            array = new Array(size).fill(null);
+            drawArray();
+            showMessage(`Array of size ${size} initialized successfully with type ${dataType}!`, 'green');
+            showRamRepresentation();
+        }
+
+        function addElement() {
+            const value = elementInput.value.trim();
+            if (value === '') {
+                showMessage('Please enter a valid value to add!', 'darkRed', true);
+                return;
+            }
+
+            const emptyIndex = array.indexOf(null);
+            if (emptyIndex === -1) {
+                showMessage('Overflow! No space to add new element.', 'yellow');
+                return;
+            }
+
+            let parsedValue;
+            switch (dataType) {
+                case 'int':
+                    if (isNaN(value) || value.includes('.')) {
+                        showMessage('Please enter a valid integer value!', 'darkRed', true);
+                        return;
+                    }
+                    parsedValue = parseInt(value);
+                    break;
+                case 'float':
+                    if (isNaN(value)) {
+                        showMessage('Please enter a valid float value!', 'darkRed', true);
+                        return;
+                    }
+                    parsedValue = parseFloat(value);
+                    break;
+                case 'char':
+                    if (value.length !== 1) {
+                        showMessage('Please enter exactly one character!', 'darkRed', true);
+                        return;
+                    }
+                    parsedValue = value;
+                    break;
+                case 'string':
+                    parsedValue = value;
+                    break;
+            }
+
+            array[emptyIndex] = parsedValue;
+            drawArray();
+            showMessage('Element added successfully!', 'green');
+            showRamRepresentation();
+        }
+
+        function deleteElement() {
+            const index = parseInt(prompt('Enter the index to delete:'));
+            if (isNaN(index) || index < 0 || index >= array.length) {
+                showMessage('Invalid index for deletion!', 'darkRed', true);
+                return;
+            }
+
+            array[index] = null;
+            drawArray();
+            showMessage(`Element at index ${index} deleted successfully!`, 'yellow');
+            showRamRepresentation();
+        }
+
+        function peekElement() {
+            const index = parseInt(prompt('Enter the index to peek:'));
+            if (isNaN(index) || index < 0 || index >= array.length) {
+                showMessage('Invalid index for peek!', 'darkRed', true);
+                return;
+            }
+
+            const value = array[index] === null ? 'null' : array[index];
+            showMessage(`Element at index ${index}: ${value}`, 'green');
+        }
+
+        function clearArray() {
+            array = new Array(maxArraySize).fill(null);
+            drawArray();
+            showMessage('Array cleared successfully!', 'yellow');
+            showRamRepresentation();
+        }
+
+        function drawArray() {
+            arrayStack.innerHTML = '';
+            array.forEach((value, index) => {
+                const container = document.createElement('div');
+                container.className = 'container';
+                const arrayBlock = document.createElement('div');
+                arrayBlock.className = 'arrayBlock';
+                arrayBlock.textContent = value === null ? '' : value;
+
+                const arrayIndex = document.createElement('div');
+                arrayIndex.className = 'arrayIndex';
+                arrayIndex.textContent = `Index ${index}`;
+
+                container.appendChild(arrayBlock);
+                container.appendChild(arrayIndex);
+                arrayStack.appendChild(container);
+            });
+        }
+
+        function showMessage(msg, color, shake = false) {
+            messageBox.style.display = 'block';
+            messageBox.textContent = msg;
+            messageBox.className = color;
+            if (shake) {
+                messageBox.classList.add('shake');
+                setTimeout(() => messageBox.classList.remove('shake'), 500);
+            }
+        }
+
+        function showRamRepresentation() {
+            ramRepresentation.textContent = `RAM Representation: ${array.map((val, idx) => `Index ${idx}: ${val ?? 'null'}`).join(' | ')}`;
+        }
+    </script>
+</body>
+</html>
