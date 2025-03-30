@@ -3,116 +3,228 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Us</title>
+  <title>About Us - Data Structures Visualizations</title>
   <link rel="icon" type="image/x-icon" href="logo.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #3498db;
+      --accent-color: #e74c3c;
+      --light-color: #ecf0f1;
+      --dark-color: #2c3e50;
+    }
+    
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      color: #333;
+      color: var(--dark-color);
+      background-color: #f9f9f9;
+      line-height: 1.6;
     }
+    
     header {
-  background: linear-gradient(to right, #000000, #0a120e, #0fff43, #f82929);
-  background-size: 300% 300%;
-  color: #fff;
-  padding: 20px 0;
-  text-align: center;
-  animation: gradientAuraAnimation 6s ease infinite;
-  font-family:fantasy;
-  text-shadow: 2px 2px 5px #333;
-}
-
- /* Animated Aura Light Effect for Header */
- @keyframes gradientAuraAnimation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 40px 0;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    header h1 {
+      font-size: 2.8rem;
+      margin: 0;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    
     section {
       max-width: 1200px;
       margin: 40px auto;
-      padding: 20px;
+      padding: 0 20px;
     }
-    .contact-info {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
+    
+    .about-section {
+      background: white;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      margin-bottom: 40px;
     }
-    .contact-box {
-      flex: 1;
-      min-width: 300px;
-      background: #f9f9f9;
-      padding: 20px;
+    
+    .about-section h2 {
+      color: var(--secondary-color);
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2rem;
+      position: relative;
+    }
+    
+    .about-section h2::after {
+      content: '';
+      position: absolute;
+      width: 80px;
+      height: 3px;
+      background: var(--accent-color);
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    .creators-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin: 40px 0;
+    }
+    
+    .creator-card {
+      background: white;
       border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 25px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 0.3s ease;
     }
-    .contact-box h3 {
-      color: #4caf50;
+    
+    .creator-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .creator-card h3 {
+      color: var(--primary-color);
+      margin-bottom: 15px;
+    }
+    
+    .creator-card p {
+      color: #7f8c8d;
       margin-bottom: 10px;
     }
+    
+    .contributions {
+      font-weight: 600;
+      color: var(--secondary-color);
+    }
+    
+    .contact-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+    }
+    
+    .contact-box {
+      background: white;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+    
+    .contact-box:hover {
+      transform: translateY(-5px);
+    }
+    
+    .contact-box h3 {
+      color: var(--secondary-color);
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
     .contact-box p {
-      margin: 5px 0;
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
+    
     .contact-box a {
-      color: #4caf50;
+      color: var(--primary-color);
       text-decoration: none;
+      transition: color 0.3s ease;
     }
+    
+    .contact-box a:hover {
+      color: var(--accent-color);
+      text-decoration: underline;
+    }
+    
     footer {
-      background: #4caf50;
+      background: var(--primary-color);
       color: white;
       text-align: center;
-      padding: 10px 0;
-      position: relative;
-      bottom: 0;
-      width: 100%;
+      padding: 20px 0;
+      margin-top: 60px;
+    }
+    
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.2rem;
+      }
+      
+      .creators-grid,
+      .contact-info {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
-
 </head>
 <body>
-    <header>
-        <h1>About Us</h1>
-      </header>
-      <section>
-        <div class="about-text" style="text-align: center;">
-            <h2>Animations Created By:</h2>
-            <p>ARRAY, PRIORITY QUEUE, STACK : <b>Sushmitha Devi Pindi</b></p>
-            <p>LINKED LIST, QUEUE, CIRCULAR QUEUE : <b>Tusha Rahul Bellamkonda</b></p>
-          </div><br><br>
-        <div class="about-content">
-          <div class="about-text">
-            <h2 style="text-align: center;">Who We Are</h2>
-            <p>We are the students Artificial Intelligence and Machine Learning students at Swarnandhra College of Engineering and Technology and believe that these visualizations can help students clarify and understand difficult points they may have struggled with. We hope this is helpful!</p>
-            <p>If you need any assistance with the page, feel free to reach out to us. We’re here to help and would be happy to support you with any questions or feedback. Don’t hesitate to contact us anytime!</p>
-          </div>
-        </div>
-      </section>
-    
+  <header>
+    <h1>About The Creators</h1>
+  </header>
+  
   <section>
-
-
-    <div class="contact-info">
-      <div class="contact-box">
-        <h3>Email Us</h3>
-        <p>Email: <a href="mailto:sushmithadevipindi@gmail.com">sushmithadevipindi@gmail.com</a></p>
-        <p>Email: <a href="mailto:tusharahul82@gmail.com">tusharahul82@gmail.com</a></p>
+    <div class="about-section">
+      <h2>Our Mission</h2>
+      <p>We are Artificial Intelligence and Machine Learning students at Swarnandhra College of Engineering and Technology. We created these visualizations to help students better understand complex data structures through interactive demonstrations.</p>
+      <p>Our goal is to make learning data structures more engaging and intuitive. If you need any assistance or have feedback, please don't hesitate to reach out!</p>
+    </div>
+    
+    <div class="about-section">
+      <h2>Meet The Team</h2>
+      <div class="creators-grid">
+        <div class="creator-card">
+          <h3>Sushmitha Devi Pindi</h3>
+          <p class="contributions"><i class="fas fa-laptop-code"></i> Created visualizations for:</p>
+          <p>• Array</p>
+          <p>• Priority Queue</p>
+          <p>• Stack</p>
+        </div>
+        
+        <div class="creator-card">
+          <h3>Tusha Rahul Bellamkonda</h3>
+          <p class="contributions"><i class="fas fa-laptop-code"></i> Created visualizations for:</p>
+          <p>• Linked List</p>
+          <p>• Queue</p>
+          <p>• Circular Queue</p>
+        </div>
       </div>
-      <div class="contact-box">
-        <h3>Call Us</h3>
-        <p>Phone: <a href="tel:6304747097">6304747097</a></p>
+    </div>
+    
+    <div class="about-section">
+      <h2>Contact Us</h2>
+      <div class="contact-info">
+        <div class="contact-box">
+          <h3><i class="fas fa-envelope"></i> Email Us</h3>
+          <p><i class="fas fa-user"></i> Sushmitha: <a href="mailto:sushmithadevipindi@gmail.com">sushmithadevipindi@gmail.com</a></p>
+          <p><i class="fas fa-user"></i> Tusha Rahul: <a href="mailto:tusharahul82@gmail.com">tusharahul82@gmail.com</a></p>
+        </div>
+        
+        <div class="contact-box">
+          <h3><i class="fas fa-phone"></i> Call Us</h3>
+          <p><i class="fas fa-mobile-alt"></i> Phone: <a href="tel:6304747097">(630) 474-7097</a></p>
+        </div>
       </div>
     </div>
   </section>
+  
   <footer>
-    <p>© All Rights Reserved.</p>
+    <p>&copy; 2023 Data Structures Visualizations. All Rights Reserved.</p>
   </footer>
 </body>
 </html>
